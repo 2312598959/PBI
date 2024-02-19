@@ -38,7 +38,7 @@ jobs:
         run: sleep 120
 
       - name: Update Function's image address
-        run: aliyun fc-open PUT /2021-04-06/services/pbi_data/functions/pbi_fc --header "Content-Type=application/json;" --body "{\"customContainerConfig\":{\"image\":\"registry-vpc.cn-hangzhou.aliyuncs.com/arc_test/pbi_acr:99999\",\"accelerationType\":\"Default\",\"webServerMode\":true}}"
+        run: aliyun fc-open PUT /2021-04-06/services/pbi_data/functions/pbi_fc --header "Content-Type=application/json;" --body "{\"customContainerConfig\":{\"image\":\"registry-vpc.cn-hangzhou.aliyuncs.com/arc_test/pbi_acr:latest\",\"accelerationType\":\"Default\",\"webServerMode\":true}}"
         # 函数计算服务API时指定的版本日期:2021-04-06
         # SERVICE_NAME:wecome_data
         # FUNCTION_NAME:dockerfile
