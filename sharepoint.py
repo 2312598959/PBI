@@ -27,12 +27,12 @@ try:
     site = Site(sharepointSite, version=Version.v365, authcookie=authcookie)
     # 输出网站的标题和描述
     print(f"SharePoint:{site.site_url}")
-    print("连接成功!")
+    print("SharePoint连接成功!")
     print("site.version")
 
 
 except Exception as e:
-    print(f"连接或认证失败：{e}")
+    print(f"SharePoint连接或认证失败：{e}")
 
 
 # 获取数据文件列表
