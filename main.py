@@ -53,7 +53,7 @@ print(files)
 print(subfile_names)
 
 # 循环读取sharepoint文件，同时开启校验。
-subfile_name = "门店信息源表-20231130.xlsx"
+subfile_name = "门店信息源表-20240220.xlsx"
 if subfile_name in subfile_names:
     print(subfile_name)
     data_stream = sharepoint_data_stream(sharepoint_folder_name, subfile_name)
@@ -69,7 +69,7 @@ if subfile_name in subfile_names:
     # 校验通过的正确文件写入oss中归档文件夹下，并写入一份parquet文件到数据文件夹下。错误文件移到错误文件夹下
     # 定义OSS上的Parquet文件名
     new_file_name = subfile_name.split(".")[0]
-    parquet_object_file = f"{oss_data_folder}/{subfile_name}.parquet"
+    parquet_object_file = f"{oss_data_folder}/{new_file_name}.parquet"
     print(parquet_object_file)
 
     custom_sheet_names = ["门店信息表"]
@@ -90,9 +90,9 @@ if subfile_name in subfile_names:
 
     # 获取列名
     column_names = target_data.columns
-    # print("column_names:", column_names)
     # 将列名进行格式化，替换掉 \n
     formatted_column_names = column_names.str.replace("\n", "")
+    print("formatted_column_names:", formatted_column_names)
     # 将格式化后的列名重新赋值给 DataFrame
     target_data.columns = formatted_column_names
 
