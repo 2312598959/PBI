@@ -7,39 +7,3 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: prod
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Login to ACR
-        uses: aliyun/acr-login@v1
-        with:
-          #阿里云容器镜像仓库地址
-          login-server: registry.cn-hangzhou.aliyuncs.com
-          username: "panxing"
-          password: "PX!QAZ2wsx3edc"
-          region-id: cn-hangzhou
-
-      - name: Build and push image
-        env:
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t registry.cn-hangzhou.aliyuncs.com/arc_test/pbi_acr .
-          docker push  registry.cn-hangzhou.aliyuncs.com/arc_test/pbi_acr
-      - name: Install Alicloud CLI
-        uses: aikin-vip/setup-aliyun-cli@v2.0.0
-        with:
-          access-key-id: LTAI5tNEgBT3FdLGT9w5NWgN
-          access-key-secret: rkQ4kXorILphTEGlXMJSS9es7dFK9v
-          region: cn-hangzhou
-
-      - name: Wait for a minute
-        run: sleep 120
-
-      - name: Update Function's image address
-        run: aliyun fc-open PUT /2021-04-06/services/pbi_data/functions/pbi_fc --header "Content-Type=application/json;" --body "{\"customContainerConfig\":{\"image\":\"registry-vpc.cn-hangzhou.aliyuncs.com/arc_test/pbi_acr:latest\",\"accelerationType\":\"Default\",\"webServerMode\":true}}"
-        # 函数计算服务API时指定的版本日期:2021-04-06
-        # SERVICE_NAME:wecome_data
-        # FUNCTION_NAME:dockerfile
-        # registry-vpc.cn-hangzhou.aliyuncs.com/arc_test/dockerfile:latest\
